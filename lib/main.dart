@@ -11,6 +11,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          colorScheme: ColorScheme.light(),
+          textTheme: ThemeData.light().textTheme.copyWith(
+              bodyText1: TextStyle(
+                  fontFamily: "OpenSans",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+          fontFamily: "OpenSans",
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+                fontFamily: "OpenSans",
+                fontSize: 32,
+                fontWeight: FontWeight.bold),
+          )),
       debugShowCheckedModeBanner: false,
       title: 'Flutter App',
       home: MyHomePage(),
