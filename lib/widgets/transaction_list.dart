@@ -38,6 +38,7 @@ class TransactionList extends StatelessWidget {
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {
+                //This is the card that needs to be changed.
                 return Card(
                   child: Row(
                     children: <Widget>[

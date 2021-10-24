@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/widgets/new_transaction.dart';
 import 'package:flutter_complete_guide/widgets/transaction_list.dart';
 import 'models/transaction.dart';
+import './widgets/transaction_tile_ui.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,14 +11,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.amber,
+          scaffoldBackgroundColor: Color(0xFFf7f5fd),
+          primaryColorDark: Color(0xFF180448),
+          primaryColorLight: Color(0xFF440fc0),
+          cardColor: Colors.white,
+          accentColor: Color(0xFFffc946),
           colorScheme: ColorScheme.light(),
           textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: TextStyle(
+                bodyText1: TextStyle(
                   fontFamily: "OpenSans",
                   fontSize: 18,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF180448),
+                ),
+              ),
           fontFamily: "OpenSans",
           appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
@@ -40,7 +47,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [];
+  final List<Transaction> _userTransactions = [
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+  ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
@@ -67,26 +87,48 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Stay in Budget'), actions: [
-        IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add))
-      ]),
-      body: SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART!'),
-                elevation: 5,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                      child: const Icon(
+                        Icons.accessibility_new_outlined,
+                        size: 32,
+                        color: Colors.white,
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          print("Notifaction button pressed");
+                        },
+                        icon: Icon(Icons.notifications)),
+                  ],
+                ),
               ),
-            ),
-            TransactionList(_userTransactions),
-          ],
+              Container(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.blue,
+                  child: Text('CHART!'),
+                  elevation: 5,
+                ),
+              ),
+              //TODO1:recofigure the tile
+              TransactionTile(),
+
+              TransactionList(_userTransactions),
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
