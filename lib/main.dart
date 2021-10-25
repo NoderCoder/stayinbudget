@@ -124,8 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               //TODO1:recofigure the tile
-              TransactionTile("Title eeee", "252", "w2ewe"),
-
               TransactionList(_userTransactions),
             ],
           ),

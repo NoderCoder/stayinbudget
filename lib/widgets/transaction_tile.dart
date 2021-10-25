@@ -12,7 +12,7 @@ class TransactionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
         child: Container(
           width: double.infinity,
           child: Card(
