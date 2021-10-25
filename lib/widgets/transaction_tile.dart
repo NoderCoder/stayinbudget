@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TransactionTile extends StatelessWidget {
-  const TransactionTile({
-    Key key,
-  }) : super(key: key);
+  final String transactionTitle;
+  final String transactionDate;
+  final String transactionAmount;
+
+  TransactionTile(
+      this.transactionTitle, this.transactionDate, this.transactionAmount);
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +42,10 @@ class TransactionTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Title",
+                            transactionTitle,
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          Text("Date",
+                          Text(transactionDate,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
@@ -58,7 +61,7 @@ class TransactionTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "36.33",
+                        transactionAmount,
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Container(

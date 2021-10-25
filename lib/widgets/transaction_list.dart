@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/widgets/transaction_tile.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
@@ -7,6 +8,14 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
   TransactionList(this.transactions);
+
+  List<String> makeSimpleStrings(int i) {
+    String title = transactions[i].title;
+    String date = DateFormat.yMMMd().format(transactions[i].date);
+    String amount = '\$${transactions[i].amount.toStringAsFixed(2)}';
+    List<String> temp = [title, date, amount];
+    return temp;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,51 +47,16 @@ class TransactionList extends StatelessWidget {
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {
+                print(makeSimpleStrings(index));
+
                 //This is the card that needs to be changed.
-                return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        //this is for the amount
-                        child: Text(
-                          //fixed to the size of 2 decimel places
-                          '\$${transactions[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                      //this is for the title.
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            transactions[index].title,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          Text(
-                            DateFormat.yMMMd().format(transactions[index].date),
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                return Column(
+                  children: [
+                    TransactionTile(
+                        makeSimpleStrings(index)[0],
+                        makeSimpleStrings(index)[1],
+                        makeSimpleStrings(index)[2]),
+                  ],
                 );
               },
               itemCount: transactions.length,

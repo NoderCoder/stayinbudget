@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/widgets/new_transaction.dart';
 import 'package:flutter_complete_guide/widgets/transaction_list.dart';
 import 'models/transaction.dart';
-import './widgets/transaction_tile_ui.dart';
+import 'widgets/transaction_tile.dart';
 
 void main() => runApp(MyApp());
 
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               //TODO1:recofigure the tile
-              TransactionTile(),
+              TransactionTile("Title eeee", "252", "w2ewe"),
 
               TransactionList(_userTransactions),
             ],
