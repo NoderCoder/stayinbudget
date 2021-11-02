@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   List<String> makeSimpleStrings(int i) {
     String title = transactions[i].title;
     String date = DateFormat.yMMMd().format(transactions[i].date);
-    String amount = '\$${transactions[i].amount.toStringAsFixed(2)}';
+    String amount = '\$ ${transactions[i].amount.toStringAsFixed(2)}';
     List<String> temp = [title, date, amount];
     return temp;
   }

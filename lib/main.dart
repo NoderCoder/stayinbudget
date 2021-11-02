@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/widgets/chart.dart';
 import 'package:flutter_complete_guide/widgets/new_transaction.dart';
 import 'package:flutter_complete_guide/widgets/transaction_list.dart';
+import 'package:intl/intl.dart';
 import 'models/transaction.dart';
-import 'widgets/transaction_tile.dart';
 
 void main() => runApp(MyApp());
 
@@ -47,26 +48,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //this list is the list that stores all the transactions. Will need to seprate this logic from main file
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Groceries',
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New Shoes',
+    //   amount: 69.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Weekly Groceries',
+    //   amount: 16.53,
+    //   date: DateTime.now(),
+    // ),
   ];
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime userSelectedDate) {
     final newTx = Transaction(
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: userSelectedDate,
       id: DateTime.now().toString(),
     );
 
@@ -82,6 +85,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return NewTransaction(_addNewTransaction);
       },
     );
+  }
+
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
   }
 
   @override
@@ -115,15 +124,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.blue,
-                  child: Text('CHART!'),
-                  elevation: 5,
-                ),
+              //this column is for the top messge
+              Column(
+                children: [
+                  Text(
+                    "\$ 250 left for 10 days",
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w100,
+                        fontSize: 14),
+                  ),
+                  Text(
+                    "\$ 12,400.00",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontSize: 48, fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              //TODO1:recofigure the tile
+              Chart(_recentTransactions),
+
               TransactionList(_userTransactions),
             ],
           ),
