@@ -26,15 +26,18 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime userselectedDate = DateTime.now();
 
   onSubmitted() {
-    final submittedTitleValue = titleController.text;
-    final submittedAmountValue = double.parse(amountController.text);
+    //todo: show diolg box if the non number is added
 
-    if (submittedAmountValue <= 0 || submittedTitleValue.isEmpty) {
+    final submittedTitleValue = titleController.text;
+    final submittedAmountValue = amountController.text;
+
+    if (double.tryParse(submittedAmountValue) == null ||
+        submittedTitleValue.isEmpty) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(" Hmm. Somethings missing"),
-          content: Text("Transaction Title or Amount missing :( "),
+          title: Text(" Hmm. Something is missing"),
+          content: Text("Looks like you forgot to add title or the amount :( "),
         ),
         barrierDismissible: true,
       );
@@ -43,7 +46,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
     widget.addTx(
       submittedTitleValue,
-      submittedAmountValue,
+      double.parse(submittedAmountValue),
       userselectedDate,
     );
     Navigator.of(context).pop();

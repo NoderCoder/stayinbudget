@@ -6,8 +6,9 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTX;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTX);
 
   List<String> makeSimpleStrings(int i) {
     String title = transactions[i].title;
@@ -48,14 +49,39 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 print(makeSimpleStrings(index));
-
                 //This is the card that needs to be changed.
                 return Column(
                   children: [
-                    TransactionTile(
-                        makeSimpleStrings(index)[0],
-                        makeSimpleStrings(index)[1],
-                        makeSimpleStrings(index)[2]),
+                    InkWell(
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text(" Deleting transaction"),
+                            content: Text("Are you sure "),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                  deleteTX(transactions[index].id);
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                          barrierDismissible: true,
+                        );
+                      },
+                      child: TransactionTile(
+                          makeSimpleStrings(index)[0],
+                          makeSimpleStrings(index)[1],
+                          makeSimpleStrings(index)[2]),
+                    ),
                   ],
                 );
               },
