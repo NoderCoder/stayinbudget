@@ -58,6 +58,16 @@ class _MyHiveAppState extends State<MyHiveApp> {
     favouriateBooksBox.put(bookIndex, books[bookIndex]);
   }
 
+  List<String> favouritedList() {
+    List<String> tempBookList = [];
+    for (int bookKey = 0; bookKey < books.length; bookKey++) {
+      if (favouriateBooksBox.containsKey(bookKey)) {
+        tempBookList.add(favouriateBooksBox.get(bookKey));
+      }
+    }
+    return tempBookList;
+  }
+
   Widget getIcon(int bookIndex) {
     if (favouriateBooksBox.containsKey(bookIndex)) {
       return Icon(
@@ -76,25 +86,32 @@ class _MyHiveAppState extends State<MyHiveApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Hive Test"),
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: favouriateBooksBox.listenable(),
-        builder: (context, Box<String> box, _) {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(books[index]),
-                trailing: IconButton(
-                  onPressed: () => onFavoritePressed(index),
-                  icon: getIcon(index),
-                ),
-              );
-            },
-          );
-        },
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Hive Test"),
+          leading: IconButton(
+            icon: Icon(Icons.account_balance),
+            onPressed: () => print(favouritedList()),
+          ),
+        ),
+        body: ValueListenableBuilder(
+          valueListenable: favouriateBooksBox.listenable(),
+          builder: (context, Box<String> box, _) {
+            return ListView.builder(
+              itemCount: books.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(books[index]),
+                  trailing: IconButton(
+                    onPressed: () => onFavoritePressed(index),
+                    icon: getIcon(index),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
