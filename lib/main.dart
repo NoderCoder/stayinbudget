@@ -1,121 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/widgets/chart.dart';
+import 'package:flutter_complete_guide/widgets/navbar.dart';
 import 'package:flutter_complete_guide/widgets/new_transaction.dart';
 import 'package:flutter_complete_guide/widgets/transaction_list.dart';
 import 'models/transaction.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
+import './widgets/navbar.dart';
 //===================Hive test
-
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-const favoritesBox = 'favorite_books';
-
+const TransactionBox = "Transactions_box";
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox<String>(favoritesBox);
-  runApp(MyHiveApp());
+  await Hive.openBox(TransactionBox);
+  runApp(MyApp());
 }
 
-const List<String> books = [
-  // book name, index
-  'Harry Potter', // 0
-  'To Kill a Mockingbird', // 1
-  'The Hunger Games', // 2
-  'The Giver', // 3
-  'Brave New World', // 4
-  'Unwind', // 5
-  'World War Z', // 6
-  'The Lord of the Rings', // etc...
-  'The Hobbit',
-  'Moby Dick',
-  'War and Peace',
-  'Crime and Punishment',
-  'The Adventures of Huckleberry Finn',
-  'Catch-22',
-  'The Sound and the Fury',
-  'The Grapes of Wrath',
-  'Heart of Darkness',
-];
-
-class MyHiveApp extends StatefulWidget {
-  @override
-  _MyHiveAppState createState() => _MyHiveAppState();
-}
-
-class _MyHiveAppState extends State<MyHiveApp> {
-  Box<String> favouriateBooksBox;
-
-  onFavoritePressed(int bookIndex) {
-    if (favouriateBooksBox.containsKey(bookIndex)) {
-      favouriateBooksBox.delete(bookIndex);
-      return;
-    }
-    favouriateBooksBox.put(bookIndex, books[bookIndex]);
-  }
-
-  List<String> favouritedList() {
-    List<String> tempBookList = [];
-    for (int bookKey = 0; bookKey < books.length; bookKey++) {
-      if (favouriateBooksBox.containsKey(bookKey)) {
-        tempBookList.add(favouriateBooksBox.get(bookKey));
-      }
-    }
-    return tempBookList;
-  }
-
-  Widget getIcon(int bookIndex) {
-    if (favouriateBooksBox.containsKey(bookIndex)) {
-      return Icon(
-        Icons.favorite,
-        color: Colors.red,
-      );
-    }
-    return Icon(Icons.favorite_border);
-  }
-
-  @override
-  void initState() {
-    favouriateBooksBox = Hive.box(
-        favoritesBox); //Hive.Box fetches the box and loads it in the memory
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Hive Test"),
-          leading: IconButton(
-            icon: Icon(Icons.account_balance),
-            onPressed: () => print(favouritedList()),
-          ),
-        ),
-        body: ValueListenableBuilder(
-          valueListenable: favouriateBooksBox.listenable(),
-          builder: (context, Box<String> box, _) {
-            return ListView.builder(
-              itemCount: books.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(books[index]),
-                  trailing: IconButton(
-                    onPressed: () => onFavoritePressed(index),
-                    icon: getIcon(index),
-                  ),
-                );
-              },
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
+// void main() async {
+//   await Hive.initFlutter();
+//   await Hive.openBox<String>(favoritesBox);
+//   runApp(MyHiveApp());
+//
 
 class MyApp extends StatelessWidget {
   @override
@@ -209,60 +114,82 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
+  bool _showChart = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Theme.of(context).primaryColorDark,
-                      child: const Icon(
-                        Icons.accessibility_new_outlined,
-                        size: 32,
-                        color: Colors.white,
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          print("Notifaction button pressed");
+      drawer: NavDrawer(), //Using different contexxt to show the drawer
+      body: Builder(
+        builder: (context) => SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
                         },
-                        icon: Icon(Icons.notifications)),
+                        child: CircleAvatar(
+                          backgroundColor: Theme.of(context).primaryColorDark,
+                          child: const Icon(
+                            Icons.accessibility_new_outlined,
+                            size: 32,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            print("Notifaction button pressed");
+                          },
+                          icon: Icon(Icons.notifications)),
+                    ],
+                  ),
+                ),
+                //this column is for the top messge
+                Column(
+                  children: [
+                    Text(
+                      "\$ 250 left for 10 days",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w100,
+                          fontSize: 14),
+                    ),
+                    Text(
+                      "\$ 12,400.00",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .copyWith(fontSize: 48, fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
-              ),
-              //this column is for the top messge
-              Column(
-                children: [
-                  Text(
-                    "\$ 250 left for 10 days",
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w100,
-                        fontSize: 14),
-                  ),
-                  Text(
-                    "\$ 12,400.00",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        .copyWith(fontSize: 48, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              Chart(_recentTransactions),
-
-              TransactionList(_userTransactions, deleteTransaction),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Show Chart"),
+                    Switch(
+                        value: _showChart,
+                        onChanged: (val) {
+                          setState(() {
+                            _showChart = val;
+                          });
+                        }),
+                  ],
+                ),
+                if (_showChart == true) Chart(_recentTransactions),
+                TransactionList(_userTransactions, deleteTransaction),
+              ],
+            ),
           ),
         ),
       ),
