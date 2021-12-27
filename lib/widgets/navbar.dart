@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/widgets/routines.dart';
 
 class NavDrawer extends StatelessWidget {
+  static String id = "NavDrawer";
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -45,6 +47,11 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.replay_30_outlined),
+            title: Text(' My Routines'),
+            onTap: () => {Navigator.of(context).pushNamed(Routines.id)},
           ),
         ],
       ),
