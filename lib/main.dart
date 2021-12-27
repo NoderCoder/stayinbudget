@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/chart.dart';
+import 'package:flutter_complete_guide/budget/chart.dart';
 import 'package:flutter_complete_guide/widgets/navbar.dart';
-import 'package:flutter_complete_guide/widgets/new_transaction.dart';
-import 'package:flutter_complete_guide/widgets/transaction_list.dart';
+import 'package:flutter_complete_guide/budget/new_transaction.dart';
+import 'package:flutter_complete_guide/budget/transaction_list.dart';
 import 'models/transaction.dart';
 import './widgets/navbar.dart';
-import './widgets/routines.dart';
-import 'myhomepage.dart';
+import 'routines/routines.dart';
+import 'budget/myhomepage.dart';
 //===================Hive test
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
 
       // initialRoute: MyHomePage.id,
 
-      initialRoute: MyHomePage.id,
+      initialRoute: Routines.id,
       routes: {
         MyHomePage.id: (context) => MyHomePage(),
         Routines.id: (context) => Routines(),

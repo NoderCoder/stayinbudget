@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/transaction_tile.dart';
+import 'package:flutter_complete_guide/budget/transaction_tile.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';

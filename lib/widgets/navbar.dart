@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/routines.dart';
+import 'package:flutter_complete_guide/routines/routines.dart';
 
 class NavDrawer extends StatelessWidget {
   static String id = "NavDrawer";

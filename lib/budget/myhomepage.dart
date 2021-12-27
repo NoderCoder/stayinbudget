@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/widgets/chart.dart';
+import 'package:flutter_complete_guide/budget/chart.dart';
 import 'package:flutter_complete_guide/widgets/navbar.dart';
-import 'package:flutter_complete_guide/widgets/new_transaction.dart';
-import 'package:flutter_complete_guide/widgets/transaction_list.dart';
-import 'models/transaction.dart';
+import 'package:flutter_complete_guide/budget/new_transaction.dart';
+import 'package:flutter_complete_guide/budget/transaction_list.dart';
+import '../models/transaction.dart';
 
 class MyHomePage extends StatefulWidget {
   static String id = "MyHomePage";
