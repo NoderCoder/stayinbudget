@@ -6,11 +6,19 @@ import '../models/quotesbank.dart';
 
 List<Routine> dailyRoutines = [
   Routine(
-      title: "Morning Workout", checked: false, checkedDate: DateTime.now()),
-  Routine(title: "Vocab review", checked: false, checkedDate: DateTime.now()),
-  Routine(title: "Goal", checked: false, checkedDate: DateTime.now()),
-  Routine(title: "Meditate", checked: false, checkedDate: DateTime.now()),
-  Routine(title: "Code", checked: false, checkedDate: DateTime.now()),
+      title: "Morning Workout",
+      checked: false,
+      checkedDate: DateTime.now(),
+      id: 1),
+  Routine(
+      title: "Vocab review",
+      checked: false,
+      checkedDate: DateTime.now(),
+      id: 2),
+  Routine(title: "Goal", checked: false, checkedDate: DateTime.now(), id: 3),
+  Routine(
+      title: "Meditate", checked: false, checkedDate: DateTime.now(), id: 4),
+  Routine(title: "Code", checked: false, checkedDate: DateTime.now(), id: 5),
 ];
 List<Quote> stoicQuotesList = QuotesBank().makeStoicQuotesList();
 
