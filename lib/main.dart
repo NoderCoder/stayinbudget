@@ -53,10 +53,10 @@ class MyApp extends StatelessWidget {
 
       // initialRoute: MyHomePage.id,
 
-      initialRoute: Routines.id,
+      initialRoute: RoutinesPage.id,
       routes: {
         MyHomePage.id: (context) => MyHomePage(),
-        Routines.id: (context) => Routines(),
+        RoutinesPage.id: (context) => RoutinesPage(),
         NavDrawer.id: (context) => NavDrawer(),
       },
     );

@@ -51,7 +51,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.replay_30_outlined),
             title: Text(' My Routines'),
-            onTap: () => {Navigator.of(context).pushNamed(Routines.id)},
+            onTap: () => {Navigator.of(context).pushNamed(RoutinesPage.id)},
           ),
         ],
       ),

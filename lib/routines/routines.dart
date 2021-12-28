@@ -1,29 +1,32 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'routinemodel.dart';
+import '../models/quotesbank.dart';
 
-class RoutineModel {}
-
-List<String> dailyRoutinesList = [
-  "Morning Workout",
-  "Vocublary review",
-  "Code",
-  "Meditate",
-  "Goal"
+List<Routine> dailyRoutines = [
+  Routine(
+      title: "Morning Workout", checked: false, checkedDate: DateTime.now()),
+  Routine(title: "Vocab review", checked: false, checkedDate: DateTime.now()),
+  Routine(title: "Goal", checked: false, checkedDate: DateTime.now()),
+  Routine(title: "Meditate", checked: false, checkedDate: DateTime.now()),
+  Routine(title: "Code", checked: false, checkedDate: DateTime.now()),
 ];
+List<Quote> stoicQuotesList = QuotesBank().makeStoicQuotesList();
 
-class Routines extends StatefulWidget {
-  static String id = "Routines";
-
+class RoutinesPage extends StatefulWidget {
+  static String id = "RoutinesPage";
   final int streakDay = 1;
   final int totalDays = 30;
   final DateTime dateTime = DateTime.now();
 
-  // Routines(this.streakDay, this.totalDays, this.dateTime);
+  // RoutinesPage(this.streakDay, this.totalDays, this.dateTime);
 
   @override
-  _RoutinesState createState() => _RoutinesState();
+  _RoutinesPageState createState() => _RoutinesPageState();
 }
 
-class _RoutinesState extends State<Routines> {
+class _RoutinesPageState extends State<RoutinesPage> {
   bool _checked = false;
   @override
   Widget build(BuildContext context) {
@@ -34,38 +37,36 @@ class _RoutinesState extends State<Routines> {
       body: ListView(
         children: [
           ExpansionTile(
-            title: Text(
-              " Day ${widget.totalDays} of ${widget.totalDays} ",
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            subtitle: Text("12/27/2021",
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontWeight: FontWeight.w100,
-                      fontSize: 12,
-                    )),
-            children: [
-              RoutineTile("Day 1 of 30", "12/27/2022", '3'),
-              CheckboxListTile(
-                value: _checked,
-                onChanged: (bool value) {
-                  setState(() {
-                    _checked = value;
-                  });
-                },
+              title: Text(
+                " Day ${widget.totalDays} of ${widget.totalDays} ",
+                style: Theme.of(context).textTheme.bodyText1,
               ),
-              ...dailyRoutinesList.map((routine) {
-                return CheckboxListTile(
-                  title: Text(routine),
-                  value: _checked,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _checked = value;
-                    });
-                  },
-                );
-              })
-            ],
-          ),
+              subtitle: Text("12/27/2021",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontWeight: FontWeight.w100,
+                        fontSize: 12,
+                      )),
+              children: [
+                RoutineTile("Day 1 of 30", "12/27/2022", '3'),
+                Text(stoicQuotesList[1].quoteText),
+                ...dailyRoutines.map<Widget>((routine) {
+                  return CheckboxListTile(
+                      title: Text(
+                        routine.title,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            decoration: routine.checked
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none),
+                      ),
+                      value: routine.checked,
+                      onChanged: (bool value) {
+                        setState(() {
+                          routine.checked = value;
+                          routine.checkedDate = DateTime.now();
+                        });
+                      });
+                })
+              ]),
         ],
       ),
     );
