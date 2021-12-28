@@ -18,8 +18,8 @@ class Chart extends StatelessWidget {
           totalAmount = totalAmount + (recentTransactions[i].amount);
         }
       }
-      print(DateFormat.E().format(weekDay));
-      print(totalAmount);
+      // print(DateFormat.E().format(weekDay));
+      // print(totalAmount);
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totalAmount
