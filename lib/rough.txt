@@ -3,4 +3,9 @@ Features :
 1. Set a monthly dollor amount to spend on outside food
 2. Enter the amount you spend every time you eat outside
 3. Ability to track the name of the resturant
-4. Document the food and rate it.
+4. Document the food and rate it. 
+
+12/25 : //Prompt user to plug in the Max monthly amount that the user intends to spend in a month
+            
+            ROutines : 
+            Inser the quote in the expansion tile and it render overflows

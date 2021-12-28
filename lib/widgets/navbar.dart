@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/routines/routines.dart';
 
 class NavDrawer extends StatelessWidget {
   static String id = "NavDrawer";
@@ -10,6 +9,7 @@ class NavDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
+            //Write somethign meaningful eh ?
             child: Text(
               '\$',
               style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -26,7 +26,9 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.input),
             title: Text('Welcome'),
-            onTap: () => {},
+            onTap: () => {
+              //Prompt user to plug in the Max monthly amount that the user intends to spend in a month
+            },
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
@@ -47,11 +49,6 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.replay_30_outlined),
-            title: Text(' My Routines'),
-            onTap: () => {Navigator.of(context).pushNamed(RoutinesPage.id)},
           ),
         ],
       ),
