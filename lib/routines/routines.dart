@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/main.dart';
 import 'routinemodel.dart';
 import '../models/quotesbank.dart';
+import 'package:hive/hive.dart';
 
 List<Routine> dailyRoutines = [
   Routine(
@@ -29,6 +31,12 @@ class RoutinesPage extends StatefulWidget {
 class _RoutinesPageState extends State<RoutinesPage> {
   final bool _checked = false;
   List<Routine> singleDayRoutineList = dailyRoutines;
+
+  void saveTheRoutine(List<Routine> routineList) async {
+    var dailyRoutineBox = await Hive.openBox<List<Routine>>("Routines_Box");
+    dailyRoutineBox.add(routineList);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +103,7 @@ class _RoutinesPageState extends State<RoutinesPage> {
                         setState(() {
                           routine.checked = value;
                           routine.checkedDate = DateTime.now();
+                          // saveTheRoutine(singleDayRoutineList);
                         });
                       });
                 })
