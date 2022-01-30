@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/main.dart';
+
 import 'routinemodel.dart';
 import '../models/quotesbank.dart';
 import 'package:hive/hive.dart';
@@ -59,6 +59,7 @@ class _RoutinesPageState extends State<RoutinesPage> {
                 Text(stoicQuotesList[1].quoteText),
                 ...singleDayRoutineList.map<Widget>((routine) {
                   return CheckboxListTile(
+                      key: UniqueKey(),
                       title: Text(
                         routine.title,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
