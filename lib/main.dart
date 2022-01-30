@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/routines/routineCircles.dart';
 import 'package:flutter_complete_guide/widgets/navbar.dart';
 import './widgets/navbar.dart';
 import 'routines/routines.dart';
@@ -55,11 +56,12 @@ class MyApp extends StatelessWidget {
 
       // initialRoute: MyHomePage.id,
 
-      initialRoute: RoutinesPage.id,
+      initialRoute: StreakCircles.id,
       routes: {
         MyHomePage.id: (context) => MyHomePage(),
         RoutinesPage.id: (context) => RoutinesPage(),
         NavDrawer.id: (context) => NavDrawer(),
+        StreakCircles.id: (context) => StreakCircles(),
       },
     );
   }
