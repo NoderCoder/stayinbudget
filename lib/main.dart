@@ -56,12 +56,13 @@ class MyApp extends StatelessWidget {
 
       // initialRoute: MyHomePage.id,
 
-      initialRoute: StreakCircles.id,
+      initialRoute: StreakTable.id,
       routes: {
         MyHomePage.id: (context) => MyHomePage(),
         RoutinesPage.id: (context) => RoutinesPage(),
         NavDrawer.id: (context) => NavDrawer(),
         StreakCircles.id: (context) => StreakCircles(),
+        StreakTable.id: (context) => StreakTable(),
       },
     );
   }
