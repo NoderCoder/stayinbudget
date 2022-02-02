@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/routines/routineCircles.dart';
 import 'package:flutter_complete_guide/widgets/navbar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './widgets/navbar.dart';
 import 'routines/routines.dart';
 import 'budget/myhomepage.dart';
@@ -34,15 +35,7 @@ class MyApp extends StatelessWidget {
           cardColor: Colors.white,
           accentColor: Color(0xFFffc946),
           colorScheme: ColorScheme.light(),
-          textTheme: ThemeData.light().textTheme.copyWith(
-                bodyText1: TextStyle(
-                  fontFamily: "OpenSans",
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF180448),
-                ),
-              ),
-          fontFamily: "OpenSans",
+          textTheme: GoogleFonts.allertaStencilTextTheme(),
           appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
                 fontFamily: "OpenSans",

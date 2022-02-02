@@ -2,6 +2,7 @@
 //Test 1 : Making chanes and pushnin gonline
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StreakCircles extends StatefulWidget {
   static String id = "StreakCircles";
@@ -126,6 +127,20 @@ class StreakTable extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Center(
+                      child: Text(
+                        "09",
+                        style: GoogleFonts.allertaStencil(
+                            textStyle: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               StreakBoxHolder(),
               StreakBoxHolder(),
               StreakBoxHolder(),
