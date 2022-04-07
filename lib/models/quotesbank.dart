@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 
 //to structure the quote
-class Quote{
+class Quote {
   String quoteText;
   String authorName;
-  Quote(String q,String a ){
+  Quote(String q, String a) {
     quoteText = q;
     authorName = a;
   }
 }
 
-class QuotesBank{
+class QuotesBank {
   //code for the list clearing,
   //this will hopefully return a list of quote objects.
-  List<Quote> makeStoicQuotesList(){
+  List<Quote> makeStoicQuotesList() {
     var i;
-    List<Quote> quoteRunningList=[];
+    List<Quote> quoteRunningList = [];
     Quote temp;
 
-    for(int j = 0 ;j <= rawStoicQuoteList.length ; j=j+4 ){
-      temp = Quote(rawStoicQuoteList[j],rawStoicQuoteList[j+1] );
+    for (int j = 0; j <= rawStoicQuoteList.length; j = j + 4) {
+      temp = Quote(rawStoicQuoteList[j], rawStoicQuoteList[j + 1]);
       quoteRunningList.add(temp);
     }
     return quoteRunningList;
   }
-
 }
-
 
 List<String> rawStoicQuoteList = [
   "What decides whether a sum of money is good? The money is not going to tell you; it must be the faculty that makes use of such impressions – reason.",
@@ -1639,4 +1637,5 @@ List<String> rawStoicQuoteList = [
   "",
   "Glory\’s an empty, changeable thing, as fickle as the weather. Poverty\’s no evil to anyone unless he kicks against it. Death is not an evil. What is it then? The one law mankind has that is free of all discrimination. Superstition is an idiotic heresy: it fears those it should love: it dishonours those it worships. For what difference does it make whether you deny the gods or bring them into disrepute?",
   "Seneca",
-  "Letter CXXII"];
+  "Letter CXXII"
+];
