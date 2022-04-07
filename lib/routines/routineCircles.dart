@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import './linepainters.dart';
-
-List<String> displayDates = [];
 
 class StreakTable extends StatelessWidget {
   const StreakTable({Key key}) : super(key: key);
@@ -18,31 +17,41 @@ class StreakTable extends StatelessWidget {
             CustomPaint(
               painter: DrawHorizontallStraightLine(),
             ),
-            DayRoutineRow(
-              day: "",
-              date: "X)",
-              boxRow: RoutineBoxHolderRow(),
-            ),
-            DayRoutineRow(
-              boxRow: StreakBoxHolderRow(),
-              date: "9",
-              day: "M0N",
-            ),
-            DayRoutineRow(
-              boxRow: StreakBoxHolderRow(),
-              date: "10",
-              day: "TUE",
-            ),
-            DayRoutineRow(
-              boxRow: StreakBoxHolderRow(),
-              date: "12",
-              day: "WED",
+            Container(
+              height: MediaQuery.of(context).size.height - 100,
+              child: ListView(
+                  children: dayRoutineRowList(
+                      DateTime.utc(2022, 03), DateTime.utc(2022, 05))),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+List<DayRoutineRow> dayRoutineRowList(DateTime startDate, DateTime endDate) {
+  List<DayRoutineRow> tempdayRoutineRowList = [
+    DayRoutineRow(
+      day: "",
+      date: "X)",
+      boxRow: RoutineBoxHolderRow(),
+    ),
+  ];
+
+  for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
+    tempdayRoutineRowList.add(
+      DayRoutineRow(
+        date: DateFormat("d").format(startDate.add(Duration(days: i))),
+        day: DateFormat("E")
+            .format(startDate.add(Duration(days: i)))
+            .toUpperCase(),
+        boxRow: StreakBoxHolderRow(),
+      ),
+    );
+  }
+
+  return tempdayRoutineRowList;
 }
 
 class DayRoutineRow extends StatelessWidget {
@@ -72,6 +81,9 @@ class DayRoutineRow extends StatelessWidget {
                     style: GoogleFonts.allertaStencil(
                         textStyle: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    width: 4,
                   ),
                   RotatedBox(
                     quarterTurns: -1,

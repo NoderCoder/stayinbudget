@@ -6,7 +6,7 @@ class DrawHorizontallStraightLine extends CustomPainter {
   DrawHorizontallStraightLine() {
     _paint = Paint();
     _paint.color = Colors.black; //dots color
-    _paint.strokeWidth = 2; //dots thickness
+    _paint.strokeWidth = 3; //dots thickness
     _paint.strokeCap = StrokeCap.square; //dots corner edges
   }
 
