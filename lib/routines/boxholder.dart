@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './tappableCircle.dart';
 import './linepainters.dart';
 
+//--------------------
 //making the box for holding the tappabele circle or some other widget
 class BoxHolder extends StatelessWidget {
   final Widget boxHolderChildWidget;

@@ -1,34 +1,12 @@
 import 'package:flutter/material.dart';
 import './boxholder.dart';
-import './tappableCircle.dart';
+
 import './linepainters.dart';
+import 'routineCircles.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-List<DayRoutineRow> dayRoutineRowList(DateTime startDate, DateTime endDate) {
-  List<DayRoutineRow> tempdayRoutineRowList = [
-    DayRoutineRow(
-      day: "",
-      date: "X)",
-      boxRow: RoutineBoxHolderRow(),
-    ),
-  ];
-
-  for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
-    tempdayRoutineRowList.add(
-      DayRoutineRow(
-        date: DateFormat("d").format(startDate.add(Duration(days: i))),
-        day: DateFormat("E")
-            .format(startDate.add(Duration(days: i)))
-            .toUpperCase(),
-        boxRow: StreakBoxHolderRow(),
-      ),
-    );
-  }
-  return tempdayRoutineRowList;
-}
 
 class DayRoutineRow extends StatelessWidget {
   Widget boxRow;
@@ -116,6 +94,29 @@ class StreakBoxHolderRow extends StatelessWidget {
     );
   }
 }
+
+List<DayRoutineRow> dayRoutineRowList(DateTime startDate, DateTime endDate) {
+  List<DayRoutineRow> tempdayRoutineRowList = List.empty(growable: true);
+
+  for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
+    tempdayRoutineRowList.add(
+      DayRoutineRow(
+        date: DateFormat("d").format(startDate.add(Duration(days: i))),
+        day: DateFormat("E")
+            .format(startDate.add(Duration(days: i)))
+            .toUpperCase(),
+        boxRow: StreakBoxHolderRow(),
+      ),
+    );
+  }
+  return tempdayRoutineRowList;
+}
+
+// DayRoutineRow InitialIconRoutineRow = DayRoutineRow(
+//   day: "",
+//   date: "X)",
+//   boxRow: RoutineBoxHolderRow(),
+// );
 
 List<BoxHolder> streakBoxHolderRowList() {
   List<BoxHolder> tempstreakBoxHolderRowList = List.empty(growable: true);
