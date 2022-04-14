@@ -62,6 +62,12 @@ class DayRoutineRow extends StatelessWidget {
   }
 }
 
+DayRoutineRow miniHabitIconRow = DayRoutineRow(
+  day: "",
+  date: "",
+  boxRow: RoutineBoxHolderRow(),
+);
+
 //ROutine box to hold the icons for the habit
 class RoutineBoxHolderRow extends StatelessWidget {
   const RoutineBoxHolderRow({Key key}) : super(key: key);
@@ -95,6 +101,7 @@ class StreakBoxHolderRow extends StatelessWidget {
   }
 }
 
+//this is what is displayed for the habits streaks
 List<DayRoutineRow> dayRoutineRowList(DateTime startDate, DateTime endDate) {
   List<DayRoutineRow> tempdayRoutineRowList = List.empty(growable: true);
 
