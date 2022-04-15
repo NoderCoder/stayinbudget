@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/main.dart';
 import './linepainters.dart';
 import './dayroutinerows.dart';
 import './habit_model.dart';
+
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:intl/intl.dart';
@@ -9,9 +13,23 @@ import './habit_model.dart';
 
 // import 'boxholder.dart';
 
-class StreakTable extends StatelessWidget {
+class StreakTable extends StatefulWidget {
   const StreakTable({Key key}) : super(key: key);
   static String id = "StreakTable";
+
+  @override
+  State<StreakTable> createState() => _StreakTableState();
+}
+
+class _StreakTableState extends State<StreakTable> {
+  final itemKey = GlobalKey();
+  final scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +45,7 @@ class StreakTable extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height - 100,
               child: ListView(
+                  controller: scrollController,
                   //TODO1: currebntly betwen some months will need to make ist dynamic
                   children: dayRoutineRowList(
                       DateTime.utc(2022, 03), DateTime.utc(2022, 05))),
@@ -40,9 +59,16 @@ class StreakTable extends StatelessWidget {
 
 //--------------------------
 //lIST OF HABITS T
+// List<Habit> habitList = List.empty(growable: true);
 List<Habit> habitList = [
-  Habit(Nameid: 1, completed: true, timeStamp: DateTime.now()),
+  //firstlistitem kept due to error. Will need to omit this date
+  Habit(Nameid: 1, completed: false, timeStamp: DateTime.utc(1989, 11, 9))
 ];
+
+final habitListBox = Hive.box(HabitListBox);
+void putInBox() async {
+  await habitListBox.put(256, [false, DateTime.now()]);
+}
 
 //-------------------------
 //when moved to seperate file thsi creates error : gotta fix it
@@ -58,11 +84,11 @@ class TappableCircle extends StatefulWidget {
 
 class _TappableCircleState extends State<TappableCircle> {
   Color tappableCircleColor = Colors.white;
-  bool isCircleTapped = true;
+  bool isCircleTapped = false;
 
   Color onCircleTap(Color color, int id) {
-    Habit tempHabit =
-        Habit(Nameid: id, completed: isCircleTapped, timeStamp: DateTime.now());
+    Habit tempHabit = Habit(
+        Nameid: id, completed: !isCircleTapped, timeStamp: DateTime.now());
     if (color == Colors.white) {
       if (id == 1) {
         habitList.add(tempHabit);
@@ -94,14 +120,14 @@ class _TappableCircleState extends State<TappableCircle> {
     double cRadius = 15;
     return InkWell(
       onTap: () => setState(() {
-        isCircleTapped = !isCircleTapped;
-
-        print(habitList.length);
-        print(habitList.last.Nameid);
-        print(habitList.last.completed);
-        print(habitList.last.timeStamp);
-
         tappableCircleColor = onCircleTap(tappableCircleColor, widget.id);
+        isCircleTapped = !isCircleTapped;
+        for (var habit in habitList) {
+          print(
+              " List lenght : ${habitList.length}  Name id : ${habit.Nameid} Completed : ${habit.completed} + datestamp : ${habit.timeStamp} ");
+        }
+
+        print("another one, DJ Kjhaleed");
       }),
       child: CircleAvatar(
         radius: cRadius,
