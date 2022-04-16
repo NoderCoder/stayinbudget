@@ -11,8 +11,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 const TransactionBox = "Transactions_box";
 const routinesBox = "Routines_Box";
+const HabitListBox = "Habit_List_Box";
 void main() async {
   await Hive.initFlutter();
+  // For Routines
+  await Hive.openBox(HabitListBox);
+
   await Hive.openBox(TransactionBox);
   await Hive.openBox(routinesBox);
   runApp(MyApp());
